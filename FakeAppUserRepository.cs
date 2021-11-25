@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace P6
+namespace P7
 {
     public class FakeAppUserRepository : IAppUserRepository
     {

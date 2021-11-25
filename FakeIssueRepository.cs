@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace P6
+namespace P7
 {
     class FakeIssueRepository : IIssueRepository
     {

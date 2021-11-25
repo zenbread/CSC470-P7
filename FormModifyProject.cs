@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace P6
+namespace P7
 {
     public partial class FormModifyProject : Form
     {

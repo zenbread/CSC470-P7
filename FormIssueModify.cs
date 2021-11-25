@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace P6
+namespace P7
 {
     public partial class FormIssueModify : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace P6
+﻿namespace P7
 {
     public class Preference
     {
