@@ -8,11 +8,11 @@ namespace P7
 {
     class FakeFeatureRepository : IFeatureRepository
     {
-        const string NO_ERROR = "";
-        const string DUPLICATE_TITLE_ERROR = "Title must be unique.";
-        const string EMPTY_TITLE_ERROR = "Title must have a value.";
-        const string NOT_FOUND_ERROR = "Feature not found.";
-        const string INVALID_PROJECT_ID_ERROR = "Invalid Project Id for feature.";
+        public const string NO_ERROR = "";
+        public const string DUPLICATE_TITLE_ERROR = "Title must be unique.";
+        public const string EMPTY_TITLE_ERROR = "Title must have a value.";
+        public const string NOT_FOUND_ERROR = "Feature not found.";
+        public const string INVALID_PROJECT_ID_ERROR = "Invalid Project Id for feature.";
         private static List<Feature> _features = new List<Feature>();
         public FakeFeatureRepository()
         {
@@ -33,32 +33,23 @@ namespace P7
             {
                 if (projectId == p.Id)
                 {
-                    check = true;
+                    check = false;
                     break;
                 }
             }
             return check;
         }
 
-        private bool isDuplicate(string title)
+        private Feature isDuplicate(Feature feature)
         {
-            bool check = false;
-            foreach (Feature f in _features)
-            {
-                if ( f.Title == title)
-                {
-                    check = true;
-                    break;
-                }
-            }
-            return check;
+            return _features.Find(x => x.ProjectId == feature.ProjectId && x.Title == feature.Title);
         }
 
         private string ValidateFeature(Feature feature)
         {
             if (string.IsNullOrEmpty(feature.Title))
                 return EMPTY_TITLE_ERROR;
-            else if (isDuplicate(feature.Title))
+            else if (isDuplicate(feature) != null)
                 return DUPLICATE_TITLE_ERROR;
             else if (CheckBadProjectId(feature.ProjectId))
                 return INVALID_PROJECT_ID_ERROR;
@@ -67,6 +58,7 @@ namespace P7
         }
         public string Add(Feature feature)
         {
+            feature.Id = GetNextId();
             string check = ValidateFeature(feature);
             if (check == "")
             {
