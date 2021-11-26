@@ -42,7 +42,11 @@ namespace P7
 
         private Feature isDuplicate(Feature feature)
         {
-            return _features.Find(x => x.ProjectId == feature.ProjectId && x.Title == feature.Title);
+            
+            Feature found = _features.Find(x => x.ProjectId == feature.ProjectId && x.Title == feature.Title);
+            if (found != null && found.Id == feature.Id)
+                return null;
+            return found;
         }
 
         private string ValidateFeature(Feature feature)
@@ -103,7 +107,7 @@ namespace P7
         public string Modify(Feature feature)
         {
             string check = ValidateFeature(feature);
-            if (check == "" || check == DUPLICATE_TITLE_ERROR)
+            if (check == NO_ERROR)
             {
                 check = NO_ERROR;
                 foreach (Feature f in _features)
