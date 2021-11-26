@@ -146,7 +146,66 @@ namespace P7
             sForm.Dispose();
             if (result == DialogResult.OK)
             {
-                MessageBox.Show($"Id: {f.ProjectId} - Title: {f.Title}", "Attention");
+                FormModifyFeature form = new FormModifyFeature(f);
+                form.ShowDialog();
+                form.Dispose();
+            }
+        }
+
+        private void removeToolStripMenuItem1_Click(object sender, System.EventArgs e)
+        {
+            FormSelectFeature sForm = new FormSelectFeature(_CurrentAppUser);
+            DialogResult result = sForm.ShowDialog();
+            Feature f = sForm._SelectedIssue;
+            sForm.Dispose();
+            if (result == DialogResult.OK)
+            {
+                result = MessageBox.Show($"Are you sure you want to remove {f.Title}?", "Question", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    FakeFeatureRepository fakeRepo = new FakeFeatureRepository();
+                    fakeRepo.Remove(f);
+                }
+
+            }
+        }
+
+        private void createToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            FormCreateRequirement form = new FormCreateRequirement(_CurrentAppUser);
+            form.ShowDialog();
+            form.Dispose();
+        }
+
+        private void modifyToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            FormModifyRequirement form = new FormModifyRequirement(_CurrentAppUser);
+            DialogResult result = form.ShowDialog();
+            Requirement r = form._SelectedReq;
+            form.Dispose();
+            if (result == DialogResult.OK)
+            {
+                FormModifyRequirementText mForm = new FormModifyRequirementText(r, _CurrentAppUser);
+                mForm.ShowDialog();
+                mForm.Dispose();
+            }
+
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            FormModifyRequirement form = new FormModifyRequirement(_CurrentAppUser);
+            DialogResult result = form.ShowDialog();
+            Requirement r = form._SelectedReq;
+            form.Dispose();
+            if (result == DialogResult.OK)
+            {
+                result = MessageBox.Show($"Are you sure you want to remove: {r.Statement}?", "Confirmation", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    FakeRequirementRepository repo = new FakeRequirementRepository();
+                    repo.Remove(r);
+                }
             }
         }
     }
