@@ -130,5 +130,24 @@ namespace P7
             }
             form.Dispose();
         }
+
+        private void createToolStripMenuItem1_Click(object sender, System.EventArgs e)
+        {
+            FormCreateFeature form = new FormCreateFeature(_CurrentAppUser);
+            form.ShowDialog();
+            form.Dispose();
+        }
+
+        private void modifyToolStripMenuItem1_Click(object sender, System.EventArgs e)
+        {
+            FormSelectFeature sForm = new FormSelectFeature(_CurrentAppUser);
+            DialogResult result = sForm.ShowDialog();
+            Feature f = sForm._SelectedIssue;
+            sForm.Dispose();
+            if (result == DialogResult.OK)
+            {
+                MessageBox.Show($"Id: {f.ProjectId} - Title: {f.Title}", "Attention");
+            }
+        }
     }
 }
